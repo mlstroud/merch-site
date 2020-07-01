@@ -7,7 +7,7 @@ function ItemList(props) {
 
   function handleNewItemSubmission(event) {
     event.preventDefault();
-    props.onItemCreation({ name: event.target.name.value, description: event.target.description.value, quantity: event.target.quantity.value, id: v4() })
+    props.onItemCreation({ name: event.target.name.value, description: event.target.description.value, quantity: event.target.quantity.value, price: event.target.price.value, id: v4() })
   }
   return (
     <React.Fragment>
@@ -35,9 +35,13 @@ function ItemList(props) {
       {props.itemList.map((item, index) =>
         <Item name={item.name}
           description={item.description}
-          quantity={item.quantity}
+          quantity={parseInt(item.quantity)}
           id={item.id}
-          key={index} />
+          price={parseInt(item.price)}
+          key={index}
+          onAddToCart={props.onAddToCart}
+          onAddToStock={props.onAddToStock}
+        />
       )}
 
     </React.Fragment>
