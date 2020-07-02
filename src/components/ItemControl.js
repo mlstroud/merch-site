@@ -57,6 +57,26 @@ class ItemControl extends React.Component {
 
   }
 
+  handleDeletingItem = (id) => {
+    const masterItemListWithoutItem = this.state.masterItemList.filter(item => item.id !== id);
+    const thisItem = this.state.masterItemList.filter(item => item.id === id)[0];
+    const { [thisItem.name]: value, ...listWithoutItem } = this.state.cartList;
+    console.log("NEW CART");
+    console.table(listWithoutItem);
+    this.setState({
+      masterItemList: masterItemListWithoutItem,
+      selectedItem: null,
+      cartList: listWithoutItem
+    })
+
+
+
+
+    // const { [thisItem.name]: value, ...listWithoutItem } = this.state.cartList;
+    // console.log("NEW CART");
+    // console.table(listWithoutItem);
+  }
+
   render() {
     let cartState = <Cart cartList={this.state.cartList} />;
     let itemState = null
@@ -69,7 +89,8 @@ class ItemControl extends React.Component {
         onSelectingItem={this.handleSelectingItem} />;
     } else if (this.state.selectedItem != null) {
       itemState = <EditItem item={this.state.selectedItem}
-        onEditItem={this.handleEditingItem} />
+        onEditItem={this.handleEditingItem}
+        onDeleteItem={this.handleDeletingItem} />
     }
     return (
 
