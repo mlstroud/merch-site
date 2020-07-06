@@ -59,15 +59,15 @@ describe("itemListReducer", () => {
       type: "DELETE_ITEM",
       id: 1
     };
-  });
 
-  expect(itemListReducer(currentState, action)).toEqual({
-    2: {
-      name: "Staff",
-      description: "Large stick",
-      price: 79.99,
-      quantity: 3,
-      id: 2
-    }
+    expect(itemListReducer(currentState, action)).toEqual({
+      2: {
+        name: "Staff",
+        description: "Large stick",
+        price: 79.99,
+        quantity: 3,
+        id: 2
+      }
+    });
   });
 });
