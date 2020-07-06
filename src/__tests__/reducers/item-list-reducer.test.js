@@ -2,6 +2,23 @@ import itemListReducer from "../../reducers/item-list-reducer";
 
 describe("itemListReducer", () => {
 
+  const currentState = {
+    1: {
+      name: "Dagger",
+      description: "Pointy",
+      price: 59.99,
+      quantity: 5,
+      id: 1
+    },
+    2: {
+      name: "Staff",
+      description: "Large stick",
+      price: 79.99,
+      quantity: 3,
+      id: 2
+    }
+  };
+
   let action;
   const itemData = {
     name: "Dagger",
@@ -35,5 +52,22 @@ describe("itemListReducer", () => {
         id: id
       }
     });
+  });
+
+  test("Should succesfully delete an item", () => {
+    action = {
+      type: "DELETE_ITEM",
+      id: 1
+    };
+  });
+
+  expect(itemListReducer(currentState, action)).toEqual({
+    2: {
+      name: "Staff",
+      description: "Large stick",
+      price: 79.99,
+      quantity: 3,
+      id: 2
+    }
   });
 });
