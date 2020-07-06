@@ -1,6 +1,6 @@
 # _Adventurer's Item Shop_
 
-#### Last Updated July 2nd, 2020_
+#### Last Updated July 6th, 2020_
 
 #### By _**Matt Stroud & Ethan Firpo**_
 
