@@ -2,22 +2,31 @@ import React from 'react';
 import ItemList from './ItemList';
 import Cart from "./Cart";
 import EditItem from "./EditItem";
+import { connect } from "react-redux";
 
 class ItemControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      masterItemList: [],
       cartList: {},
-      selectedItem: null
+      selectedItem: null,
     }
   };
 
   handleCreatingItemsToList = (newItem) => {
-    const newMasterItemList = this.state.masterItemList.concat(newItem)
-    this.setState({
-      masterItemList: newMasterItemList
-    })
+    const { dispatch } = this.props;
+    const { id, name, description, price, quantity } = newItem;
+    const action = {
+      type: "ADD_ITEM",
+      id: id,
+      name: name,
+      description: description,
+      price: price,
+      quantity: quantity
+    };
+
+    dispatch(action);
+    this.setState({ selectedItem: null });
   }
 
   handleAddingItemsToCart = (item) => {
@@ -50,31 +59,29 @@ class ItemControl extends React.Component {
   }
 
   handleEditingItem = (item) => {
-    const masterItemListWithEdit = this.state.masterItemList.map(
-      (obj, index) => (obj.id === item.id ? Object.assign({}, this.state.masterItemList[index], item) : console.log("ERROR YOU JOKER"))
-    );
-    this.setState({ masterItemList: masterItemListWithEdit, selectedItem: null })
+    const { dispatch } = this.props;
+    const { id, name, description, price, quanity } = item;
+    const action = {
+      id: id,
+      name: name,
+      description: description,
+      price: price,
+      quanity: quanity
+    };
 
+    dispatch(action);
+    this.setState({ selectedItem: null });
   }
 
   handleDeletingItem = (id) => {
-    const masterItemListWithoutItem = this.state.masterItemList.filter(item => item.id !== id);
-    const thisItem = this.state.masterItemList.filter(item => item.id === id)[0];
-    const { [thisItem.name]: value, ...listWithoutItem } = this.state.cartList;
-    console.log("NEW CART");
-    console.table(listWithoutItem);
-    this.setState({
-      masterItemList: masterItemListWithoutItem,
-      selectedItem: null,
-      cartList: listWithoutItem
-    })
+    const { dispatch } = this.props;
+    const action = {
+      type: "DELETE_ITEM",
+      id: id
+    };
 
-
-
-
-    // const { [thisItem.name]: value, ...listWithoutItem } = this.state.cartList;
-    // console.log("NEW CART");
-    // console.table(listWithoutItem);
+    dispatch(action);
+    this.setState({ selectedItem: null });
   }
 
   render() {
@@ -102,5 +109,7 @@ class ItemControl extends React.Component {
     );
   }
 }
+
+ItemControl = connect()(ItemControl);
 
 export default ItemControl;
