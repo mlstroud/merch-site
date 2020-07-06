@@ -5,14 +5,23 @@ function Item(props) {
 
   function handleAddToCartClick() {
     props.onAddToCart({
-      name: props.name, description: props.description,
-      quantity: props.quantity, price: props.price
-    })
+      name: props.name,
+      description: props.description,
+      quantity: parseInt(props.quantity),
+      price: props.price,
+      id: props.id
+    });
   }
 
   function handleAddToStock(event) {
     event.preventDefault();
-    props.onAddToStock(event.target.adds.value, props.name);
+    props.onAddToStock(event.target.adds.value, {
+      name: props.name,
+      description: props.description,
+      quantity: props.quantity,
+      price: props.price,
+      id: props.id
+    });
   }
 
   function handleSelectingItem() {
